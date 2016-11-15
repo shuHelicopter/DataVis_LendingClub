@@ -16,7 +16,7 @@ output:
 
 # Introduction
 
-Lending Club (“LC”) is the world’s largest peer-to-peer online platform. It reduces the cost of lending and borrowing for individuals with advanced data analytics. The function of peer-to-peer companies is to match people who have money with people who want to borrow money. As a leader in this industry, LC completed its initial public offering in December 2014, which significantly improved public trust in this fast-growing company.  
+Lending Club (“LC”) is the world’s largest peer-to-peer online lending platform. It reduces the cost of lending and borrowing for individuals with advanced data analytics. The function of peer-to-peer companies is to match people who have money with people who want to borrow money. As a leader in this industry, LC completed its initial public offering in December 2014, which significantly improved public trust in this fast-growing company.  
 In this project, we will explore data published by Lending Club and try to dig out some inspiring and valuable insights.  
 
 ## R Packages:
@@ -75,7 +75,7 @@ loandf_org2$issue_d <- as.Date(gsub("^", "01-", loandf_org2$issue_d),
 loandf_org <- rbind(loandf_org1, loandf_org2)
 ```
  
-Forty variables were selected from both technical and statistical perspectives in this analysis. Detailed explanation of all variables is availiable in 
+Forty variables were selected from both technical and statistical perspectives in this analysis. A detailed explanation of all variables is availiable in 
 [LC Data Dictionary.](https://resources.lendingclub.com/LCDataDictionary.xlsx) 
 ```{r, tidy=T, warning=FALSE, eval=FALSE}
 # 41 variables, selection criteria: limited missingness, understandable, useful
@@ -91,16 +91,16 @@ loandf <- loandf_org %>% select(one_of(var_name))
 save(loandf, file = './Lending_Club/loandf.RData')
 ```
 
-# Exploration Data Analysis
+# Exploratory Data Analysis
 
-Six trends are investigated: 
-* The growth of issued loans, both in terms of dollars and volume
-* The geographical distribution of loans 
-* The purposes for loans
-* The interest rate changes over time
-* The interest rate distribution over different grades
-* The grades distribution over different home ownership
-* The relation between annual income and its verification status
+Six trends are investigated:   
+* The growth of issued loans, both in terms of dollars and volume  
+* The geographical distribution of loans   
+* The purposes for loans  
+* The interest rate changes over time  
+* The interest rate distribution over different grades  
+* The grades distribution over different home ownership  
+* The relation between annual income and its verification status  
 
 ## Growth of Issued Loans
 ```{r, tidy=T, warning=FALSE, include=FALSE}
@@ -132,7 +132,7 @@ g_vol + geom_line(aes(y = volume), color = 'red') +
         theme_linedraw()
 ```
 
-Lending Club was launched in 2007, and its business grew significantly since the start of 2012. From 2014 to 2016Q1, monthly loan amount and volume have been increasing drastically. However, as seen from above two line graphs, the growth during the spikes is very unstable. Additionally, the increasing paths of the loan amounts and volume are similar in two graphs. 
+Lending Club was launched in 2007, and its business has grown significantly since the start of 2012. From 2014 to 2016Q1, monthly loan amount and volume have been increasing drastically. However, as seen from the above two line graphs, the growth during the spikes is very unstable. Additionally, the increasing paths of the loan amounts and volume are similar in the two graphs. 
 In the long term, we can still expect a high growth rate based on the company’s performance in the date range specified in the graphs.  
 
 ```{r, tidy=T, warning=FALSE}
@@ -153,7 +153,7 @@ g_gtvy + geom_bar(aes(fill = grade)) +
          theme_bw()
 ```
 
-As seen from these two bar charts, the number of loans of 36 months is greater than those of 60 months. In addition, the proportion of loans with different grades varies with terms. As to 30-month loans, the majority are in grade A, B, and C. As to 60-month loans, only a small percentage of loans are in grade A, and most of loans are in grade B, C, D, and E.  
+As seen from these two bar charts, the number of 36-month loans is greater than 60-month loans. In addition, the proportion of loans with different grades varies with terms. As for 30-month loans, the majority are in grade A, B, and C. As for 60-month loans, only a small percentage of loans are in grade A, and most of loans are in grade B, C, D, and E.  
 
 ```{r, tidy=T, warning=FALSE, fig.width=6, fig.height=4, fig.align='center'}
 ## Ghanges of average amount per loan
@@ -164,7 +164,7 @@ g_avgAmt + geom_point(color = 'cadetblue4', size = 0.5) +
            theme_bw() 
 ```
 
-In order to learn more about the growth, we fit a basic trend line to figure out the changes in single loan amount. The above line chart shows the average amount of a single loan increased at a constant rate from 2007 to 2012, but it grew with a descending rate from 2013 to 2014. From 2015 and 2016Q1, the average loan amount roughly remained unchanged.  
+In order to learn more about the growth, we fit a basic trend line to figure out the changes in single loan amount. The above line chart shows the average amount of a single loan increased at a constant rate from 2007 to 2012, but it grew with a descreasing rate from 2013 to 2014. From 2015 and 2016Q1, the average loan amount remained roughly unchanged.  
 
 ## Geographical Distribution of Issued Loans
 Understanding the geographical distribution help us know the markets of LC's current business, and it also provides information about where potential customers are.
@@ -202,7 +202,7 @@ locAmt_df <- inner_join(locAmt_df, nameTrans, by = 'addr_state')
 state_choropleth(locVol_df, title = 'Loan Volume by State', num_colors = 9) 
 state_choropleth(locAmt_df, title = 'Loan Amount by State', num_colors = 9)
 ```
-From a geographical perspective, California, Texas, New York, Florida, and Illinois have the largest dollar amount and volume of loans. California is the location of Lending Club, so it is reasonable this state has more business. As for Texas, New York, Florida, and Illinois, its high volume and amount of loans may be related to Lending Club's promotion activities in these places.
+From a geographical perspective, California, Texas, New York, Florida, and Illinois have the largest dollar amounts and volumes of loans. California is the location of Lending Club’s headquarters, so it is reasonable this state has more business. As for Texas, New York, Florida, and Illinois, their high volume and amount of loans may be related to Lending Club's promotion activities in these places.
 
 ## Why and How Much do People Borrow?
 Peer-to-peer lending focuses on both individual borrowing and business borrowing, so it’s important to understand why consumers decide to borrow money.    
@@ -237,12 +237,12 @@ treemap(prp_df,
 ```
 
 Unsurprisingly, debt consolidation is the most common reason for borrowing. The greatest advantage of peer-to-peer lending is the low cost. Loans issued by LC usually charge lower interest rates compared with money provided by traditional banks. Most consumers choose to consolidate debt to enjoy lower borrowing costs.  
-Notice that there are three variable in the above tree map: purposes, average amount of a loan, and total volume of loans. It helps give an overall view of the relationship between purposes of loans and the volume and amount of loans.  
-The various sizes in the above tree map are directly proportional to the volume of loans with different purposes. We can know that debt consolidation, and credit card are the most popular reasons for borrowing.  
+Notice that there are three variables in the above tree map: purposes, average amount of a loan, and the total volume of loans. It helps give an overall view of the relationship between purposes of loans and the volume and amount of loans.  
+The various sizes in the above tree map are directly proportional to the volume of loans with different purposes. We can know that debt consolidation and credit card are the most popular reasons for borrowing.  
 The different color is related to the average amount of a loan. Loans for debt consolidation, credit card, house, and small business usually have higher average amount than other purposes.
 
 ### 2.4 Interest Rate Change, Time and Term
-We explored two terms of loans: 36 months and 60 months, and we analyzed the different distribution of interest rates for loans with different grades in this two terms. It helps us examine LC's core advantage over traditional banks, that is, the algorithm LC applies to evaluating the credit risk of different borrowers.  
+We explored two terms of loans: 36 months and 60 months, and we analyzed the different distribution of interest rates for loans with various grades in this two terms. It helps us examine LC's core advantage over traditional banks, that is, the algorithm LC applies to evaluating the credit risk of different borrowers.  
 ```{r, tidy=T, warning=FALSE, fig.height=8}
 # Term, interest rate and grade: dataser preprocessing
 loandf$int_rate = as.numeric(sub('%', '', loandf$int_rate))
@@ -257,7 +257,7 @@ g_tig + geom_boxplot(outlier.size = 0.5, color = 'red') +
         theme_bw()
 ```
 
-First, as to horizontal analysis of the above graph, it’s really interesting that interest rates of loans with different grades behave in a significant trend through years. The interest rates have been increasing from 2010 to 2015, especially for low-grade loans such as grades D, E, F, G.  Also, we see that disparities of interest rates become larger and larger, and finally interest rate intervals among different grades are almost equal. That is possibly due in part to LC’s credit policy updates. This change is a significant proof that LC has become more and more proficient in the evaluation of loans’ risk and debt management.  
+First, as to the horizontal analysis of the above graph, it’s absorbing that interest rates of loans with different grades behave in a significant trend through years. The interest rates have been increasing from 2010 to 2015, especially for low-grade loans such as grades D, E, F, G.  Also, we see that disparities of interest rates become larger and larger, and finally interest rate intervals among different grades are almost equal. That is possibly due in part to LC’s credit policy updates. This change is significant proof that LC has become more and more proficient in the evaluation of loans’ risk and debt management.  
 
 However, as to vertical analysis of this graph, results are not so good. According to the risk theory, with a longer duration comes a higher risk that the loan will not be repaid, so in long-term rates are generally higher than short-term ones. From the above graph, we couldn't find clear difference between long-term loans and short-term loans.  
 
@@ -285,7 +285,7 @@ g_tisub2 + geom_boxplot(outlier.size = 0.5, aes(color = term)) +
            theme_bw()
 ```
 
-As seen from the above graphs, we can see that as the subgrade decreases, the interest rate increases in general, but for grade G1-G5, the interest rate of 60-month loans seems unchanged. Also, the interest rate of 36-month loans seems like an outlier. These points are worth deeper analysis, but we would not include it here.  
+As seen from the above graphs, we can see that as the subgrade decreases, the interest rate increases in general, but for grade G1-G5, the interest rate on 60-month loans seems unchanged, and the interest rate on 36-month loans with grade G5 seems like an outlier. These points are worth deeper analysis with inside information of LC's business.  
 Last but not least, we find that the interest rate of different terms are not that different as the risk theory implies. One reason may be the inefficiency of loan pricing in LC although LC claims that they set 'Risk Modifiers' for loan terms.  
 
 ## Grade and Default 
@@ -332,7 +332,7 @@ g_deftSb3 + geom_bar(fill = 'firebrick2') +
             theme_bw()
 ```
 
-Based on above four graphs, the proportion of low-grade loans such as grades D, E, F, and G become larger and larger when the loan status moves from the best status, 'current & Fully paid', to the worst status, 'Charged off & Default'. In other words, the long tail in right side of the distribution is shorter and shorter, and the top two grades change from B, C to C, D. This is not exact examination of the effect of grades, but it still provide information about risk of loans in different grades.  
+Based on above four graphs, the proportion of low-grade loans such as grades D, E, F, and G become larger and larger when the loan status moves from the best status, 'current & Fully paid', to the worst status, 'Charged off & Default'. In other words, the long tail in right side of the distribution is shorter and shorter, and the top two grades change from B, C to C, D. This is not an exact examination of the effeciency of grades, but it still provides information about risk of loans in different grades.  
 
 ## Grade and Home Ownership
 Next, we want to analyze loans' grades of different home ownership.
@@ -350,10 +350,10 @@ g_mort + geom_bar(aes(fill = grade)) +
        title = 'Issued Loans of Different Home Ownership') +
   theme_bw()
 ```
-Obviously, people in 'MORTGAGE' and 'RENT' have much more demands of borrowing money than people in 'OWN' based on the bar chart. That's because that usually people who owns a house have better financial situation than others. 
+Obviously, people in 'MORTGAGE' and 'RENT' have much more demands of borrowing money than people in 'OWN' based on the bar chart. That's because people who own a house usually have better financial situation than others. 
 
 ## Income and Verification Status
-This is a simple analysis about the fraud detection. 
+This is a simple analysis of the fraud detection. 
 ```{r, tidy=T, warning=FALSE}
 # Verified or not and annual_inc 
 vrf_raw_df <- loandf %>% select(verification_status, annual_inc)
@@ -411,7 +411,7 @@ cor_var <- select(cor_var, -sub_grade, -issue_d, -earliest_cr_line) # remove old
 Feature engineering help us extract real information from raw data. Also, it can provide useful features for future models.
 
 ## Correlation Analysis
-Before we apply advanced models, it's necessary to check every assumptions of the models. Correlation map is one of the most important ways to figure out the multicollinearity among dependent variables.
+Before we apply advanced models, it's necessary to check every assumption of the models. Correlation map is one of the most important ways to figure out the multicollinearity among dependent variables.
 ```{r, tidy=T, warning=FALSE, fig.width=8, fig.height=8, fig.align='center'}
 # correlation map between subgrades and other factors
 summary(cor_var) # check basic information of all variables
@@ -423,10 +423,10 @@ corrplot(M, method = 'number',
          number.cex = 0.5,
          tl.cex = 0.8)
 ```
-Many insights can be explored here, but we will not talk about those details in this project.
+The correlation map shows the relation between every two variables in the dataset.
 
-# Summary & Insignts
-In this project, we have a brief and clear introduction to the growth of LC’s main business. It’s obvious that LC is currently a fast-growing but the increasing of volume and amount of loans is erratic.  This is surprising given that we expect public companies to be more stable, which means some customers still cannot completely trust LC and its products.  The drastic fluctuation of LC’s stock price also proves the conclusion.  
+# Summary & Insights
+In this project, we have a brief and clear introduction to the growth of LC’s main business. It’s obvious that LC is currently a fast-growing but the increasing of volume and amount of loans is erratic. It is surprising given that we expect public companies to be more stable, which means some customers still cannot completely trust LC and its products.  The drastic fluctuation of LC’s stock price also proves the conclusion.  
 
 However, LC’s business model still brings a great advantage over traditional banks. LC is improving its risk and credit evaluation technology and trying to extend its market from individuals to businesses. From the latest growth data, we still believe LC issued loans will continue to grow rapidly. 
 
